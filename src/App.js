@@ -4,10 +4,13 @@ import shortid from "shortid";
 import Form from "./components/Form/Form";
 import Filter from "./components/Filter/Filter";
 import s from "./App.module.css";
+import { connect } from "react-redux";
+import actions from "./redux/actions";
 
-export default function App() {
+function App(value, addContact) {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState("");
+  console.log(addContact);
 
   useEffect(() => {
     const contacts = JSON.parse(localStorage.getItem("contacts"));
@@ -20,21 +23,21 @@ export default function App() {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
-  const addContact = (name, number) => {
-    let duplicate = contacts.find((contact) => contact.name === name);
+  // const addContact = (name, number) => {
+  //   let duplicate = contacts.find((contact) => contact.name === name);
 
-    if (duplicate) {
-      alert("Такой контакт уже существует!");
-    } else {
-      const contact = {
-        name,
-        number,
-        id: shortid.generate(),
-      };
+  //   if (duplicate) {
+  //     alert("Такой контакт уже существует!");
+  //   } else {
+  //     const contact = {
+  //       name,
+  //       number,
+  //       id: shortid.generate(),
+  //     };
 
-      setContacts((prevState) => [contact, ...prevState]);
-    }
-  };
+  //     setContacts((prevState) => [contact, ...prevState]);
+  //   }
+  // };
 
   const changeFilter = (e) => {
     setFilter(e.currentTarget.value);
@@ -56,7 +59,7 @@ export default function App() {
   return (
     <>
       <h1 className={s}>Phonebook</h1>
-      <Form onSubmit={addContact} />
+      <Form onSubmit={() => addContact} />
       <h2 className={s}>Contacts</h2>
       <Filter value={filter} onChange={changeFilter} />
       <ContactList
@@ -66,3 +69,13 @@ export default function App() {
     </>
   );
 }
+
+const mapStateToProps = (state) => ({
+  value: state.contacts,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addContact: () => dispatch(actions.addContact()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

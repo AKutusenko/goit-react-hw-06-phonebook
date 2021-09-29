@@ -1,6 +1,7 @@
 import { createStore } from "redux";
 
-const initialState = { contacts: [] };
+const initialState = { contacts: ["Dereb "] };
+console.log(initialState);
 
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
