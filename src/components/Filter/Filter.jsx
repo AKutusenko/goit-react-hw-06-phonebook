@@ -1,6 +1,8 @@
+import { connect } from "react-redux";
 import s from "./Filter.module.css";
+import { filter } from "../../redux/actions";
 
-export default function Filter({ value, onChange }) {
+function Filter({ value, onChange }) {
   return (
     <label className={s.label}>
       Filter
@@ -17,3 +19,13 @@ export default function Filter({ value, onChange }) {
     </label>
   );
 }
+
+const mapStateToProps = (state) => ({
+  value: state.filter,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChange: (e) => dispatch(filter(e.currentTarget.value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

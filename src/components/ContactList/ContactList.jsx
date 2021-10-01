@@ -1,10 +1,21 @@
+import { connect } from "react-redux";
 import s from "./ContactList.module.css";
+import * as actions from "../../redux/actions";
 
-export default function ContactList({ contacts, onRemoveContact }) {
+function ContactList({ contacts, filter, onRemoveContact }) {
+  function getVisibleContacts() {
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  }
+
+  const visibleContacts = getVisibleContacts();
+
   return (
     <ul className={s.list}>
-      {contacts &&
-        contacts.map(({ name, number, id }) => (
+      {visibleContacts &&
+        visibleContacts.map(({ name, number, id }) => (
           <li className={s.listItem} key={id}>
             {`${name}: ${number}`}
             <button
@@ -19,3 +30,16 @@ export default function ContactList({ contacts, onRemoveContact }) {
     </ul>
   );
 }
+
+const mapStateToProps = (state) => ({
+  contacts: state.contacts,
+  filter: state.filter,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onRemoveContact: (id) => dispatch(actions.removeContact(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
