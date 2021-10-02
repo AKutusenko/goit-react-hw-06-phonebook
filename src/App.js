@@ -26,17 +26,6 @@ export default function App() {
   //   localStorage.setItem("contacts", JSON.stringify(store.getState().contacts));
   // }, [contacts]);
 
-  // const changeFilter = (e) => {
-  //   setFilter(e.currentTarget.value);
-  // };
-
-  // const getVisibleContacts = () => {
-  //   const normalizedFilter = filter.toLowerCase();
-  //   return contacts.filter((contact) =>
-  //     contact.name.toLowerCase().includes(normalizedFilter)
-  //   );
-  // };
-
   return (
     <>
       <h1 className={s}>Phonebook</h1>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import s from "./Form.module.css";
-import { addContact } from "../../redux/actions";
+import { addContact } from "../../redux/contacts/contacts-actions";
 import { connect } from "react-redux";
 
 function Form({ addContact }) {

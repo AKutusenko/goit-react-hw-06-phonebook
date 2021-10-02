@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import s from "./Filter.module.css";
-import { filter } from "../../redux/actions";
+import { filter } from "../../redux/filter/filter-actions";
 
 function Filter({ value, onChange }) {
   return (

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import s from "./ContactList.module.css";
-import * as actions from "../../redux/actions";
+import { removeContact } from "../../redux/contacts/contacts-actions";
 
 function ContactList({ contacts, filter, onRemoveContact }) {
   function getVisibleContacts() {
@@ -38,7 +38,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRemoveContact: (id) => dispatch(actions.removeContact(id)),
+    onRemoveContact: (id) => dispatch(removeContact(id)),
   };
 };
 
