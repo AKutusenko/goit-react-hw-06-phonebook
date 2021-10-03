@@ -1,8 +1,12 @@
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import s from "./ContactList.module.css";
 import { removeContact } from "../../redux/contacts/contacts-actions";
 
-function ContactList({ contacts, filter, onRemoveContact }) {
+export default function ContactList() {
+  const contacts = useSelector((state) => state.contacts);
+  const filter = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
+
   function getVisibleContacts() {
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter((contact) =>
@@ -21,7 +25,8 @@ function ContactList({ contacts, filter, onRemoveContact }) {
             <button
               className={s.btn}
               type="button"
-              onClick={() => onRemoveContact(id)}
+              // onClick={() => onRemoveContact(id)}
+              onClick={() => dispatch(removeContact(id))}
             >
               Remove
             </button>
@@ -31,15 +36,15 @@ function ContactList({ contacts, filter, onRemoveContact }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  contacts: state.contacts,
-  filter: state.filter,
-});
+// const mapStateToProps = (state) => ({
+//   contacts: state.contacts,
+//   filter: state.filter,
+// });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onRemoveContact: (id) => dispatch(removeContact(id)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onRemoveContact: (id) => dispatch(removeContact(id)),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+// export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

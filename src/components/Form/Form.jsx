@@ -1,9 +1,10 @@
 import { useState } from "react";
 import s from "./Form.module.css";
 import { addContact } from "../../redux/contacts/contacts-actions";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
-function Form({ addContact }) {
+export default function Form() {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
@@ -25,7 +26,7 @@ function Form({ addContact }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addContact(name, number);
+    dispatch(addContact(name, number));
     setNumber("");
     setName("");
   };
@@ -67,14 +68,14 @@ function Form({ addContact }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return { contacts: state.contacts };
-};
+// const mapStateToProps = (state) => {
+//   return { contacts: state.contacts };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addContact: (name, number) => dispatch(addContact(name, number)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     addContact: (name, number) => dispatch(addContact(name, number)),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+// export default connect(mapStateToProps, mapDispatchToProps)(Form);
